@@ -1,9 +1,26 @@
-import { useNavigate, Form, useActionData, redirect } from 'react-router-dom';
+import {
+	useNavigate,
+	useLoaderData,
+	Form,
+	redirect,
+	useActionData,
+} from 'react-router-dom';
+import { obtenerClientesId, actualizarCliente } from '../data/clientes';
 import Formulario from '../components/Formulario';
 import Error from '../components/Error';
-import { agregarCliente } from '../data/clientes';
 
-export async function action({ request }) {
+export async function loader({ params }) {
+	const cliente = await obtenerClientesId(params.clienteId);
+	if (Object.values(cliente).length === 0) {
+		throw new Response('', {
+			status: 404,
+			statusText: 'El cliente no fue encontrado',
+		});
+	}
+	return cliente;
+}
+
+export async function action({ request, params }) {
 	const formData = await request.formData();
 
 	const datos = Object.fromEntries(formData);
@@ -29,21 +46,24 @@ export async function action({ request }) {
 		return errores;
 	}
 
-	// Agregar el cliente
-	await agregarCliente(datos);
+	// Actualizar el Cliente
+	await actualizarCliente(params.clienteId, datos);
 
 	return redirect('/');
 }
 
-const NuevoCliente = () => {
+const EditarCliente = () => {
 	const navigate = useNavigate();
+	const cliente = useLoaderData();
 	const errores = useActionData();
 
 	return (
 		<>
-			<h1 className="font-black text-4xl text-blue-900">Nuevo Cliente</h1>
+			<h1 className="font-black text-4xl text-blue-900">
+				Editar Cliente
+			</h1>
 			<p className="mt-3">
-				Llena todos los campos para registrar un nuevo cliente
+				A continuacion podras modificar los datos de un cliente
 			</p>
 
 			<div className="flex justify-end">
@@ -59,11 +79,11 @@ const NuevoCliente = () => {
 				{errores?.length &&
 					errores.map((error, i) => <Error key={i}>{error}</Error>)}
 				<Form method="post">
-					<Formulario />
+					<Formulario cliente={cliente} />
 					<input
 						type="submit"
 						className="mt-5 w-full p-3 uppercase font-bold text-lg cursor-pointer text-white bg-blue-800"
-						value="Registrar Cliente"
+						value="Editar Cliente"
 					/>
 				</Form>
 			</div>
@@ -71,4 +91,4 @@ const NuevoCliente = () => {
 	);
 };
 
-export default NuevoCliente;
+export default EditarCliente;

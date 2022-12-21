@@ -12,10 +12,8 @@ const Index = () => {
 
 	return (
 		<>
-			<h1 className="font-black text-4xl text-center text-blue-900">
-				Clientes
-			</h1>
-			<p className="mt-3 text-center">Administra tus Clientes</p>
+			<h1 className="font-black text-4xl text-blue-900">Clientes</h1>
+			<p className="mt-3">Administra tus Clientes</p>
 
 			{clientes.length ? (
 				<table className="[&>tbody>*:nth-child(odd)]:bg-gray-100 [&>tbody>*:nth-child(even):bg-white w-full bg-white shadow mt-5 table-auto">

@@ -15,13 +15,6 @@
       "empresa": "Codigo Con Juan"
     },
     {
-      "id": 3,
-      "nombre": "Josue",
-      "telefono": 31983913,
-      "email": "josue@juan.com",
-      "empresa": "Codigo Con Juan"
-    },
-    {
       "id": 4,
       "nombre": "Miguel",
       "telefono": 319381983,
@@ -36,11 +29,11 @@
       "empresa": "Codigo Con Juan"
     },
     {
-      "nombre": "Facundo",
+      "nombre": "Facundo Veron",
       "empresa": "Edit",
       "email": "facundo@gmail.com",
       "telefono": "+54 9 2364 643579",
-      "notas": "El cliente quiere un Ecommerce",
+      "notas": "El cliente quiere un Ecommerce y quiere comer",
       "id": 6
     },
     {
